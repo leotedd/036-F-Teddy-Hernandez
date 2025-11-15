@@ -72,45 +72,55 @@ export default function Consumo() {
 
       {/* MODAL DEL DETALLE */}
       {selected && (
-        <div className="fixed inset-0 bg-black/60 flex justify-center items-center p-4">
-          <div className="bg-white rounded-xl shadow-xl p-6 max-w-lg w-full relative">
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center p-4 z-50">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-2xl w-full relative max-h-[90vh] overflow-y-auto">
 
             <button
-              className="absolute top-3 right-3 text-xl"
+              className="absolute top-3 right-3 text-2xl font-bold hover:text-red-600"
               onClick={() => setSelected(null)}
             >
               ✖
             </button>
 
-            <img
-              src={selected.strDrinkThumb}
-              alt=""
-              className="rounded-xl w-full mb-4"
-            />
+            <div className="flex flex-col md:flex-row gap-6">
+              {/* Imagen */}
+              <div className="md:w-1/3 shrink-0">
+                <img
+                  src={selected.strDrinkThumb}
+                  alt={selected.strDrink}
+                  className="rounded-xl w-full object-cover"
+                />
+              </div>
 
-            <h2 className="text-2xl font-bold mb-2 text-center">
-              {selected.strDrink}
-            </h2>
+              {/* Información */}
+              <div className="md:w-2/3">
+                <h2 className="text-2xl font-bold mb-3 text-blue-700">
+                  {selected.strDrink}
+                </h2>
 
-            <p><b>Categoría:</b> {selected.strCategory}</p>
-            <p><b>Vaso:</b> {selected.strGlass}</p>
-            <p><b>Instrucciones:</b> {selected.strInstructions}</p>
+                <div className="space-y-2 mb-4">
+                  <p><b>Categoría:</b> {selected.strCategory}</p>
+                  <p><b>Vaso:</b> {selected.strGlass}</p>
+                  <p><b>Instrucciones:</b> {selected.strInstructions}</p>
+                </div>
 
-            <h3 className="mt-4 font-bold">Ingredientes:</h3>
-            <ul className="list-disc ml-6">
-              {Array.from({ length: 15 }).map((_, i) => {
-                const ingrediente = selected[`strIngredient${i+1}`];
-                const medida = selected[`strMeasure${i+1}`];
+                <h3 className="font-bold text-lg mb-2">Ingredientes:</h3>
+                <ul className="list-disc ml-6 space-y-1">
+                  {Array.from({ length: 15 }).map((_, i) => {
+                    const ingrediente = selected[`strIngredient${i+1}`];
+                    const medida = selected[`strMeasure${i+1}`];
 
-                return (
-                  ingrediente && (
-                    <li key={i}>
-                      {ingrediente} {medida ? `- ${medida}` : ""}
-                    </li>
-                  )
-                );
-              })}
-            </ul>
+                    return (
+                      ingrediente && (
+                        <li key={i}>
+                          {ingrediente} {medida ? `- ${medida}` : ""}
+                        </li>
+                      )
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
 
           </div>
         </div>
